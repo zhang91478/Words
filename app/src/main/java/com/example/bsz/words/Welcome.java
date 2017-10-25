@@ -9,9 +9,13 @@ import android.os.Bundle;
 
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.TextView;
+
 
 
 public class Welcome extends AppCompatActivity {
+
 
 
     @Override
@@ -21,8 +25,11 @@ public class Welcome extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);  //隐藏标题栏和状态栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题
         setContentView(R.layout.activity_welcome);
-    //    handler.sendEmptyMessageDelayed(0,3000);
-        handler.sendEmptyMessageDelayed(0,1);
+
+        TextView editText = (TextView) findViewById(R.id.textView_welcome);
+        editText.setText("考研必过！！！！");
+        handler.sendEmptyMessageDelayed(0,2000);
+
 
     }
     private Handler handler = new Handler(){

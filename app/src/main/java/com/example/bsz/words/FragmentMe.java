@@ -59,8 +59,6 @@ public class FragmentMe extends Fragment {
         }
         Log.v("FragmentBook","getChildData()");
 
-
-
         adapter = new SimpleExpandableListAdapter(
                         getActivity(),
                         GroupList,
@@ -80,7 +78,7 @@ public class FragmentMe extends Fragment {
         DBManger dbManger = new DBManger(getActivity(),"wordbook.db",null,30);
         String sql = "SELECT * FROM myWords";
         listOfMyWord = dbManger.getWordOfMeFromDateBase(sql);
-        updateListViewItem(expandableListView);
+        updateListViewItem(adapter);
         Log.v("FragmentMe","载入单词数"+listOfMyWord.size());
     }
 
@@ -94,7 +92,7 @@ public class FragmentMe extends Fragment {
         Log.v("FragmentMe","final ExpandableListView listView "+ (listView == null));
         expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, final View view, int i, long l) {
+            public boolean onItemLongClick(final AdapterView<?> adapterView, final View view, int i, long l) {
                 final String word = listOfMyWord.get(i).getWord();
                 new AlertDialog.Builder(getActivity())
                         .setTitle("删除"+word)
@@ -104,7 +102,7 @@ public class FragmentMe extends Fragment {
                                 DBManger dbManger = new DBManger(getActivity(),"wordbook.db",null,30);
                                 dbManger.deleteByWord(word);
                                 listOfMyWord = dbManger.getWordOfMeFromDateBase("SELECT * FROM myWords");
-                                updateListViewItem(listView);
+                                updateListViewItem(adapter);
                                 Log.v("FragmentMe","final ExpandableListView listView "+ (listView == null));
                             }
                         })
@@ -129,7 +127,7 @@ public class FragmentMe extends Fragment {
                 listOfMyWord = dbManger.getWordOfMeFromDateBase(sql);
                 Log.v("FragmentMe","载入单词数"+listOfMyWord.size());
                 expandableListView = view.findViewById(R.id.fragment_me_list_item);
-                updateListViewItem(expandableListView);
+                updateListViewItem(adapter);
 
                 return true;
             }
@@ -143,15 +141,16 @@ public class FragmentMe extends Fragment {
         }
 
         expandableListView = view.findViewById(R.id.fragment_me_list_item);
-        updateListViewItem(expandableListView);
+        expandableListView.setAdapter(adapter);
         return view;
     }
 
 
-    private void updateListViewItem(ExpandableListView ListView){
+    private void updateListViewItem(SimpleExpandableListAdapter expandableListAdapter){
 
         GroupList.clear();
         ChildList.clear();
+
         for (int i = 0; i < listOfMyWord.size(); i++) {
             HashMap<String,Object> groupMap = new HashMap<>();
             groupMap.put("myWord", listOfMyWord.get(i).getWord());
@@ -167,8 +166,10 @@ public class FragmentMe extends Fragment {
             arrayList.add(childMap);
             ChildList.add(arrayList);
         }
+
+
         Log.v("FragmentBook","getChildData()");
-        ListView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+    //    ListView.setAdapter(adapter);
+        expandableListAdapter.notifyDataSetChanged();
     }
 }

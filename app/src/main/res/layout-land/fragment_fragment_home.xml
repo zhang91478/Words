@@ -35,8 +35,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fragment_home_list_item"
-        >
+        android:id="@+id/fragment_home_list_item">
     </ListView>
 
 </LinearLayout>

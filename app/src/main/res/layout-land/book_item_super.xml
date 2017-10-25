@@ -6,12 +6,9 @@
     android:configChanges="orientation|keyboardHidden|screenSize">
     <TextView
         android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/myWord"
-        android:textSize="30sp"
-        android:layout_width="0dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/myTime"/>
+        android:id="@+id/allWord"
+        android:textSize="30sp" />
+
 </LinearLayout>

@@ -7,13 +7,11 @@
     tools:context="com.example.bsz.words.Welcome"
     android:background="@drawable/welcome">
 
-
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView_welcome"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_alignParentBottom="true"
         android:textSize="33sp"
-        android:text="huanyong "/>
+        />
 </RelativeLayout>
